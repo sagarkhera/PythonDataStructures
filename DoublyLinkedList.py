@@ -41,15 +41,31 @@ class DoublyLinkedList:
         if self.head is None:
             return
         while current != None:
-            print(current.data,end = '->');
+            print(current.data,end = '->')
             current = current.next;
         print(current)
+       
+    def remove(self,data):
+        cur_node = self.head
+        while cur_node is not None and cur_node.data!=data:
+            cur_node = cur_node.next
+        if cur_node.next:
+            cur_node.next.previous = cur_node.previous
+        if cur_node.previous:
+            cur_node.previous.next = cur_node.next
+        if cur_node is self.head:
+            self.head = cur_node.next
+        cur_node.next = None
+        cur_node.previous = None
 
 dList = DoublyLinkedList();
-dList.append(1);
-dList.append(2);
-dList.append(3);
-dList.append(4);
-dList.append(5);
+dList.append(1)
+dList.append(2)
+dList.append(3)
+dList.append(4)
+dList.append(5)
 dList.prepend(6)
-dList.display();
+dList.remove(3)
+dList.display()
+
+#Output: 6->1->2->4->5->None
